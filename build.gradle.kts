@@ -35,6 +35,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.apache.commons:commons-lang3:3.17.0")
+	implementation("io.hypersistence:hypersistence-tsid:2.1.4")
 
 	compileOnly("org.projectlombok:lombok")
 

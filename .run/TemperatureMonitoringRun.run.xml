@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="TemperatureMonitoringRun" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.algaworks.algasensors.temperature.monitoring.AlgasensorsTemperatureMonitoringApplication" />
+    <module name="algasensors-temperature-monitoring.main" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/microservices/algasensors-temperature-monitoring" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.algaworks.algasensors.temperature.monitoring.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
