@@ -1,6 +1,11 @@
 spring:
   application:
     name: algasensors-temperature-monitoring
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: rabbitmq
+    password: rabbitmq
   jpa:
     hibernate:
       ddl-auto: update
