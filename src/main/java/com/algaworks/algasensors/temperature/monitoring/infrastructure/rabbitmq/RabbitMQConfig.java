@@ -13,10 +13,15 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String QUEUE = "temperature-monitoring.process-temperature.v1.q";
+    public static final String QUEUE_PROCESS_TEMPERATURE = "temperature-monitoring.process-temperature.v1.q";
+    public static final String QUEUE_PROCESS_TEMPERATURE_DLQ = "temperature-monitoring.process-temperature.v1.dlq";
+    public static final String QUEUE_ALERTING = "temperature-monitoring.alerting.v1.q";
 
     @Bean
     Jackson2JsonMessageConverter jackson2JsonMessageConverter(final ObjectMapper objectMapper){
@@ -29,8 +34,21 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    Queue queue(){
-        return QueueBuilder.durable(QUEUE).build();
+    Queue queueProcessTemperature(){
+        return QueueBuilder.durable(QUEUE_PROCESS_TEMPERATURE)
+                .withArgument("x-dead-letter-exchange", "")
+                .withArgument("x-dead-letter-routing-key", QUEUE_PROCESS_TEMPERATURE_DLQ)
+                .build();
+    }
+
+    @Bean
+    Queue deadLetterQueueProcessTemperature(){
+        return QueueBuilder.durable(QUEUE_PROCESS_TEMPERATURE_DLQ).build();
+    }
+
+    @Bean
+    Queue queueAlerting(){
+        return QueueBuilder.durable(QUEUE_ALERTING).build();
     }
 
     private FanoutExchange exchange(){
@@ -40,8 +58,13 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    Binding binding(){
-        return BindingBuilder.bind(queue()).to(exchange());
+    Binding bindingProcessTemperature(){
+        return BindingBuilder.bind(queueProcessTemperature()).to(exchange());
+    }
+
+    @Bean
+    Binding bindingAlerting(){
+        return BindingBuilder.bind(queueAlerting()).to(exchange());
     }
 
 }

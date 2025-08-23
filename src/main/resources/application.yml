@@ -6,6 +6,15 @@ spring:
     port: 5672
     username: rabbitmq
     password: rabbitmq
+    listener:
+      simple:
+        prefetch: 4 # define quantas mensagens são pegar pelo consumidor
+        retry:
+          enabled: true
+          initial-interval: 10s
+          max-interval: 30s
+          multiplier: 2
+          max-attempts: 3
   jpa:
     hibernate:
       ddl-auto: update

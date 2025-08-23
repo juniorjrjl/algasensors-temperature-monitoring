@@ -23,4 +23,5 @@ public class SensorAlertEntity {
     private SensorAlertId id;
     private Double maxTemperature;
     private Double minTemperature;
+
 }
